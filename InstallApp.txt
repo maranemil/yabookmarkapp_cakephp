@@ -1,0 +1,274 @@
+Install CakePHP 3.10.0 Red Velvet.
+Install CakePHP 4.2.8 Strawberry
+
+composer create-project --prefer-dist cakephp/app:^3.8 yabookmarkapp_cakephp
+composer create-project --prefer-dist cakephp/app:~4.0 yabookmarkapp_cakephp
+cd yabookmarkapp_cakephp
+
+sudo chmod -R 777 tmp
+sudo chmod -R 777 logs
+sudo chmod -R 777 ../yabookmarkapp_cakephp/
+
+#chcon -R -t httpd_sys_content_rw_t 'tmp'
+#chcon -R -t httpd_sys_content_rw_t 'logs'
+
+3.X
+https://book.cakephp.org/3/en/installation.html
+https://book.cakephp.org/3/en/appendices/3-9-migration-guide.html
+https://book.cakephp.org/3/en/tutorials-and-examples.html
+https://book.cakephp.org/3/en/development/routing.html
+https://api.cakephp.org/3.5/class-Cake.Controller.Controller.html
+https://book.cakephp.org/3/en/controllers.html
+https://api.cakephp.org/3.0/class-Cake.Database.Query.html#_newExpr
+https://book.cakephp.org/3/en/orm/query-builder.html
+https://book.cakephp.org/3/en/orm/query-builder.html#using-sql-functions
+
+
+4.X
+https://book.cakephp.org/4/en/installation.html
+https://book.cakephp.org/4/en/tutorials-and-examples/cms/installation.html
+https://book.cakephp.org/4/en/tutorials-and-examples/cms/database.html
+https://book.cakephp.org/4/en/tutorials-and-examples/cms/database.html
+https://book.cakephp.org/4/en/orm/query-builder.html
+https://api.cakephp.org/4.0/class-Cake.Database.Expression.CaseExpression.html
+https://book.cakephp.org/4/en/orm/database-basics.html#running-select-statements
+https://book.cakephp.org/4/en/orm/query-builder.html#case-statements
+https://book.cakephp.org/4/en/orm/query-builder.html#case-statements
+https://book.cakephp.org/4/en/orm/database-basics.html#running-select-statements
+https://book.cakephp.org/4/en/orm/database-basics.html
+https://book.cakephp.org/4/en/controllers.html
+https://book.cakephp.org/4/en/controllers/request-response.html
+https://book.cakephp.org/4/en/views/helpers/url.html
+https://book.cakephp.org/4/en/controllers/components/pagination.html
+https://book.cakephp.org/4/en/views/helpers/paginator.html
+https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html
+https://book.cakephp.org/4/en/views/helpers/form.html
+https://book.cakephp.org/4/en/orm/database-basics.html#running-delete-statements
+https://book.cakephp.org/3/en/orm/query-builder.html
+
+# config with user and pass
+config/app_local.php 
+config/app.php 
+
+# Add SQL structure in MariaDB
+
+bin/cake bake all Users
+bin/cake bake all Bookmarks
+bin/cake bake all Favourites
+bin/cake bake all Categories
+
+
+# in views layout default.php add links 
+
+use Cake\Routing\Router;
+<?php echo Router::url('/bookmarks',true)?>
+
+https://book.cakephp.org/4/en/development/routing.html
+https://book.cakephp.org/4/en/views.html
+https://book.cakephp.org/4/en/views/helpers/paginator.html
+https://book.cakephp.org/4/en/controllers/components/pagination.html
+https://book.cakephp.org/4/en/core-libraries/time.html
+https://discourse.cakephp.org/t/formatting-date-time-in-view-in-cakephp-3/2630/2
+https://book.cakephp.org/4/en/controllers/components.html
+https://book.cakephp.org/4/en/views/helpers/html.html
+https://book.cakephp.org/4/en/controllers/components/request-handling.html
+
+
+# Missing or invalid CSRF cookie
+https://discourse.cakephp.org/t/missing-csrf-token-body/7638
+https://discourse.cakephp.org/t/missing-csrf-token-body/7638/13
+FIX remove CSRF from Application.php 
+
+
+// Cross Site Request Forgery (CSRF) Protection Middleware
+// https://book.cakephp.org/4/en/controllers/middleware.html#cross-site-request-forgery-csrf-middleware
+//->add(new CsrfProtectionMiddleware([
+//    'httponly' => true,
+//]));
+
+
+# Missing Controller
+Cake\Http\Exception\MissingControllerException
+
+FIX: create templates/Error/missing_controller.php
+
+add
+
+<?php
+$host  = $_SERVER['HTTP_HOST'];
+$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+$extra = 'index.php/';
+header("Location: http://$host$uri/$extra");
+exit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#######################################################
+#
+#   Extra
+#
+#######################################################
+
+
+echo ".idea/*" >> .gitignore
+echo ".nbproject/*" >> .gitignore
+git commit -am "remove .idea"
+
+bin/cake server
+bin/cake server -H 192.168.13.37 -p 5673
+
+
+bin/cake bake
+bin/cake bake --help
+bin/cake server
+bin/cake migrations -h
+bin/cake bake.bake -h
+
+# TPL
+# bin/cake bake controller Users
+# bin/cake bake model Users
+# bin/cake bake template Users
+
+bin/cake bake all Users
+bin/cake bake all Bookmarks
+bin/cake bake all Favourites
+bin/cake bake all Categories
+
+bin/cake bake template Users index
+bin/cake bake template Users -t BootstrapUI
+
+bin/cake bake controller Users --prefix admin
+bin/cake bake template Users --prefix admin
+
+bin/cake bake all UserRecords -c records --table tbl_records_user -t BootstrapUI
+
+# DB
+bin/cake bake model UserRecords -c records
+bin/cake bake model UserRecords -c records --table tbl_records_user
+bin/cake bake model UserRecords -c records --table tbl_records_user --display-field email
+bin/cake bake model UserRecords -c records --table tbl_records_user --no-associations
+
+bin/cake bake model
+bin/cake bake controller
+bin/cake bake template
+
+--------------------------------------------------------
+
+core.php
+
+Cache::config('default', array(
+    'engine' => 'File',
+    'mask' => 0666,
+));
+
+chgrp -R www-data app/tmp
+chmod -R g+rw app/tmp 
+find app/tmp -type d -exec chmod g+s {} \;
+
+
+Fix-Warning-SplFileInfo-CakePHP
+https://github.com/tosipaulo/Fix-Warning-SplFileInfo-CakePHP
+
+Cache::config ( '_cake_core_' , array ( 
+    'engine'  => $engine , 
+    'prefix'  =>  'cake_core_' , 
+    'path'  => CACHE .  'persistent'  . DS , 
+    'serialize'  =>  ( $engine ===  'File' ), 
+    'duration'  => $duration , 
+    'mask'  =>  0666 
+));
+
+Cache::config ( '_cake_model_' , array ( 
+    'engine'  => $engine , 
+    'prefix'  =>  'cake_model_' , 
+    'path'  => CACHE .  'models'  . DS , 
+    'serialize'  =>  ( $engine ===  'File' ), 
+    'duration'  => $duration , 
+    'mask'  =>  0666 
+));
+
+
+https://sandbox.dereuromark.de/sandbox/bootstrap
+https://holt59.github.io/cakephp3-bootstrap-helpers/
+https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/invert()
+https://www.epochconverter.com/
+
+
+https://stackoverflow.com/questions/24162862/how-to-retrieve-substring-data-from-same-table-but-different-field-column-in-cak
+https://stackoverflow.com/questions/30845997/how-to-generate-sql-function-calls-with-the-cakephp-query-builder
+https://stackoverflow.com/questions/24711205/retrieve-data-from-db-using-substring-in-cakephp
+https://alvinalexander.com/php/cakephp-validate-require-notempty-allowempty-form-model/
+
+
+
+
+// get params in controller
+
+/*$controllerName = $this->request->getParam('controller');
+debug($controllerName);
+$parameters = $this->request->getAttribute('params');
+debug($parameters);    
+$passedArgs = $this->request->getParam('pass');
+debug($parameters);
+$query = $this->request->getQueryParams();
+debug($query);
+$search_string = $this->request->getData('search_string');
+debug($search_string);*/
+
+
+// make it dark 
+<style>
+    /*html {
+        filter: invert(90) !important;
+        -webkit-filter: invert(90) !important;
+    }*/
+</style>
+
+
+[ ajax how to ]
+https://onlinewebtutorblog.com/cakephp-4-crud-using-ajax-requests-tutorial/###
+https://discourse.cakephp.org/t/working-csrf-ajax-in-cakephp-4-looking-for-criticism/7714
+https://github.com/dereuromark/cakephp-ajax
+https://github.com/dereuromark/cakephp-ajax/blob/master/docs/README.md
+https://packagist.org/packages/dereuromark/cakephp-ajax
+https://sandbox.dereuromark.de/sandbox/ajax-examples
+https://cakephp.blog/real-time-search-with-ajax-and-cakephp/###
+https://www.startutorial.com/articles/view/cakephp-and-jquery-2#
+
+
+
+[misc]
+https://stackoverflow.com/questions/9098649/jquery-ajax-request-with-json-response-how-to
+https://stackoverflow.com/questions/33164931/how-to-read-error-log-file-in-cakephp-3-x
+https://book.cakephp.org/2/en/core-libraries/logging.html
+https://book.cakephp.org/3/en/core-libraries/logging.html
+
+
+[cdn jquery]
+https://developers.google.com/speed/libraries
+https://cdnjs.com/libraries/jquery
+https://www.w3schools.com/jquery/jquery_get_started.asp
+https://code.jquery.com/
+
+
+
+https://github.com/cakephp/debug_kit/issues/194
+https://stackoverflow.com/questions/49129535/500-internal-server-error-jquery-3-3-1-js9600-xhr-send-options-hascont
+
+
+

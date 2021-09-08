@@ -1,0 +1,147 @@
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE articles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    slug VARCHAR(191) NOT NULL,
+    body TEXT,
+    published BOOLEAN DEFAULT FALSE,
+    created DATETIME,
+    modified DATETIME,
+    UNIQUE KEY (slug),
+    FOREIGN KEY user_key (user_id) REFERENCES users(id)
+) CHARSET=utf8mb4;
+
+CREATE TABLE tags (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(191),
+    created DATETIME,
+    modified DATETIME,
+    UNIQUE KEY (title)
+) CHARSET=utf8mb4;
+
+CREATE TABLE articles_tags (
+    article_id INT NOT NULL,
+    tag_id INT NOT NULL,
+    PRIMARY KEY (article_id, tag_id),
+    FOREIGN KEY tag_key(tag_id) REFERENCES tags(id),
+    FOREIGN KEY article_key(article_id) REFERENCES articles(id)
+);
+
+INSERT INTO users (email, password, created, modified)
+VALUES
+('cakephp@example.com', 'secret', NOW(), NOW());
+
+INSERT INTO articles (user_id, title, slug, body, published, created, modified)
+VALUES
+(1, 'First Post', 'first-post', 'This is the first post.', 1, NOW(), NOW());
+
+
+
+
+
+
+
+
+
+--
+-- Tabellenstruktur für Tabelle `bookmarks`
+--
+
+CREATE TABLE `bookmarks` (
+  `bookmarks_id` int(11) NOT NULL,
+  `categories_id` int(11) DEFAULT NULL,
+  `bookmarks_hash` varchar(255) NOT NULL,
+  `bookmarks_name` varchar(255) NOT NULL,
+  `bookmarks_url` text NOT NULL,
+  `bookmarks_type` tinyint(1) UNSIGNED ZEROFILL NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `categories`
+--
+
+CREATE TABLE `categories` (
+  `categories_id` int(11) NOT NULL,
+  `categories_parent` int(11) NOT NULL,
+  `categories_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `favourites`
+--
+
+CREATE TABLE `favourites` (
+  `favourites_id` int(11) NOT NULL,
+  `bookmarks_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indizes der exportierten Tabellen
+--
+
+--
+-- Indizes für die Tabelle `bookmarks`
+--
+ALTER TABLE `bookmarks`
+  ADD PRIMARY KEY (`bookmarks_id`),
+  ADD UNIQUE KEY `bookmarks_url` (`bookmarks_url`) USING HASH,
+  ADD KEY `categories_id` (`categories_id`);
+
+--
+-- Indizes für die Tabelle `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`categories_id`),
+  ADD UNIQUE KEY `categories_name` (`categories_name`);
+
+--
+-- Indizes für die Tabelle `favourites`
+--
+ALTER TABLE `favourites`
+  ADD PRIMARY KEY (`favourites_id`),
+  ADD UNIQUE KEY `bookmarks_id` (`bookmarks_id`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
+
+--
+-- AUTO_INCREMENT für Tabelle `bookmarks`
+--
+ALTER TABLE `bookmarks`
+  MODIFY `bookmarks_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `favourites`
+--
+ALTER TABLE `favourites`
+  MODIFY `favourites_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `bookmarks`
+--
+ALTER TABLE `bookmarks`
+  ADD CONSTRAINT `bookmarks_ibfk_1` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`categories_id`) ON DELETE SET NULL;
+COMMIT;
