@@ -13,7 +13,7 @@ $(function(){
             var postdata = "bookmarks_id=" + $(this).attr("data-id");
             //console.log(postdata)
             $.ajax({
-                url: "http://localhost/wwweb/yabookmarkapp_cakephp/index.php/ajax/toogle",
+                url: location.href + "/ajax/toogle",
                 data: postdata,
                 type: "JSON",
                 method: "post",
