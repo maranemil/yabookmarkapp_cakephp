@@ -102,7 +102,8 @@ header("Location: http://$host$uri/$extra");
 exit;
 
 
-
+# restore vendor packagers
+composer update
 
 
 
