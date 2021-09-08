@@ -14,7 +14,6 @@
 
 ## Home page
 
-
 ![](https://github.com/maranemil/yabookmarkapp_cakephp/blob/main/screens/1_bookmarks.png?raw=true)
 
 ## Search
