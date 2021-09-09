@@ -38,9 +38,15 @@
                             <td><?= h($bookmark->bookmarks_name) ?></td>
                             <td><?= h($bookmarks_types[$bookmark->bookmarks_type]) ?></td>
                             <td>
-                                <a href="<?= h($bookmark->bookmarks_url) ?>" target="_blank">
-                                    <i class="fa fa-link"></i>
-                                </a>                        
+                                <?php if (substr_count($bookmark->bookmarks_url, "http") == 1) : ?>
+                                    <a href="<?= h($bookmark->bookmarks_url) ?>" target="_blank">
+                                        <i class="fa fa-link"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?= $this->Url->build('/bookmarks/view/' . $bookmark->bookmarks_id, ['fullBase' => true]) ?>" target="_blank">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                <?php endif; ?>
                             </td>
                             <td class="actions" style="white-space: nowrap;">
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $bookmark->bookmarks_id], ['class' => 'button button-outline']) ?>
