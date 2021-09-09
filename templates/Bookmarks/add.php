@@ -35,7 +35,7 @@
                 echo $this->Form->control('bookmarks_hash', ['value' => time(), 'label' => 'Timestamp Hash','required' => 'required']);
                 echo $this->Form->control('bookmarks_name',['required' => 'required']);
                 echo $this->Form->control('bookmarks_url',['required' => 'required']);
-                echo $this->Form->control('bookmarks_type',['options' => $bookmarks_types,'required' => 'required']);
+                echo $this->Form->select('bookmarks_type', $bookmarks_types, ['required' => 'required', 'default' => 0]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
