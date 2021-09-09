@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Bookmark[]|\Cake\Collection\CollectionInterface $bookmarks
@@ -22,33 +23,35 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($bookmarks as $bookmark): ?>
-                <tr>
-                    <td><?= $this->Number->format($bookmark->bookmarks_id) ?></td>
-                    <td><?= $bookmark->has('category') ? $this->Html->link($bookmark->category->categories_id, ['controller' => 'Categories', 'action' => 'view', $bookmark->category->categories_id]) : '' ?></td>
-                    <td><?= h(date("d.m.Y", $bookmark->bookmarks_hash)) ?></td>
-                    <td><?= h($bookmark->bookmarks_name) ?></td>
-                    <td><?= h($bookmarks_types[$bookmark->bookmarks_type]) ?></td>
-                    <td>
-                        <a href="<?= h($bookmark->bookmarks_url) ?>" target="_blank">
-                            <i class="fa fa-link"></i>
-                        </a>                           
-                    </td>
-                    <td>
-                        <a href="javascript:void(0)" class="btn btn-danger btn-toggle-fav" data-id="<?= $bookmark->bookmarks_id ?>">
-                        <i class="fa fa-bookmark"></i>
-                        </a>
-                    </td>
-                    <td class="actions" style="white-space: nowrap;">
-                        <!-- 
-                            <a href="<?= $this->Url->build('/bookmarks/view/' . $bookmark->bookmarks_id, ['fullBase' => true]) ?>" 
-                            class="btn btn-warning">Edit</a>  
-                        -->
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $bookmark->bookmarks_id],['class'=>'button button-outline']) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $bookmark->bookmarks_id],['class'=>'button button-outline']) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $bookmark->bookmarks_id], ['class'=>'button button-outline','confirm' => __('Are you sure you want to delete # {0}?', $bookmark->bookmarks_id)]) ?>
-                    </td>
-                </tr>
+                <?php foreach ($bookmarks as $bookmark) : ?>
+                    <tr>
+                        <td><?= $this->Number->format($bookmark->bookmarks_id) ?></td>
+                        <td><?= $bookmark->has('category') ? $this->Html->link($bookmark->category->categories_id, ['controller' => 'Categories', 'action' => 'view', $bookmark->category->categories_id]) : '' ?></td>
+                        <td><?= h(date("d.m.Y", $bookmark->bookmarks_hash)) ?></td>
+                        <td><?= h($bookmark->bookmarks_name) ?></td>
+                        <td><?= h($bookmarks_types[$bookmark->bookmarks_type]) ?></td>
+                        <td>
+                            <?php if (substr_count($bookmark->bookmarks_url, "http") == 1) : ?>
+                                <a href="<?= h($bookmark->bookmarks_url) ?>" target="_blank">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                            <?php else: ?>
+                                <a href="<?= $this->Url->build('/bookmarks/view/' . $bookmark->bookmarks_id, ['fullBase' => true]) ?>" target="_blank">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-toggle-fav" data-id="<?= $bookmark->bookmarks_id ?>">
+                                <i class="fa fa-bookmark"></i>
+                            </a>
+                        </td>
+                        <td class="actions" style="white-space: nowrap;">
+                            <?= $this->Html->link(__('View'), ['action' => 'view', $bookmark->bookmarks_id], ['class' => 'button button-outline']) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $bookmark->bookmarks_id], ['class' => 'button button-outline']) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $bookmark->bookmarks_id], ['class' => 'button button-outline', 'confirm' => __('Are you sure you want to delete # {0}?', $bookmark->bookmarks_id)]) ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
