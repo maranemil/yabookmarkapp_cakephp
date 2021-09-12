@@ -18,7 +18,6 @@
             <?= $this->Form->create($bookmark) ?>
             <fieldset>
                 <legend><?= __('Add Bookmark') ?></legend>
-
                 <div class="input select">
                     <label for="categories-id">Categories</label>
                     <select name="categories_id" id="categories-id">
@@ -29,10 +28,9 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-
                 <?php
                 #echo $this->Form->control('categories_id', ['options' => $categories, 'empty' => true]);
-                echo $this->Form->control('bookmarks_hash', ['value' => time(), 'label' => 'Timestamp Hash','required' => 'required']);
+                echo $this->Form->control('bookmarks_hash', ['value' => time(), 'label' => 'Timestamp Hash','required' => 'required','readonly' => 'readonly']);
                 echo $this->Form->control('bookmarks_name',['required' => 'required']);
                 echo $this->Form->control('bookmarks_url',['required' => 'required']);
                 echo $this->Form->select('bookmarks_type', $bookmarks_types, ['required' => 'required', 'default' => 0]);
@@ -43,6 +41,3 @@
         </div>
     </div>
 </div>
-
-<?php //print_r($categories_list); 
-?>

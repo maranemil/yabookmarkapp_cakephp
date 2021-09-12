@@ -107,20 +107,6 @@ exit;
 # restore vendor packagers
 composer update
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #######################################################
 #
 #   Extra
@@ -130,6 +116,7 @@ composer update
 
 echo ".idea/*" >> .gitignore
 echo ".nbproject/*" >> .gitignore
+echo "vendor/*" >> .gitignore
 git commit -am "remove .idea"
 
 bin/cake server

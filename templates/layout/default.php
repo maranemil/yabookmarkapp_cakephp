@@ -18,7 +18,7 @@
 use Cake\Routing\Route\Route;
 use Cake\Routing\Router;
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'CakePHP Bookmark System';
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,12 +53,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
+            <a href="<?= $this->Url->build('/') ?>"><span>CakePHP</span> Bookmarks</a>
         </div>
         <div class="top-nav-links">
             <a href="<?php echo Router::url('/bookmarks/search', true) ?>">Search</a>
             <a href="<?php echo Router::url('/bookmarks', true) ?>">Bookmarks</a>
-            <a href="<?php echo Router::url('/bookmarks/domains', true) ?>">Top Bookmarks</a>
+            <a href="<?php echo Router::url('/bookmarks/domains', true) ?>">Top</a>
             <a href="<?php echo Router::url('/categories', true) ?>">Categories</a>
             <a href="<?php echo Router::url('/favourites', true) ?>">Favourites</a>
             <a href="<?php echo Router::url('/pages/home', true) ?>">CakePHP PAGE</a>
