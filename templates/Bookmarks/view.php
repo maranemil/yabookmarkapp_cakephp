@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Bookmark $bookmark
@@ -42,7 +43,16 @@
             <div class="text">
                 <strong><?= __('Bookmarks Url') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($bookmark->bookmarks_url)); ?>
+                    <?php if (substr_count($bookmark->bookmarks_url, "http") <> 1) :
+                        $arrUrls = explode("\n", $bookmark->bookmarks_url); ?>
+                        <?php foreach ($arrUrls as $url) : ?>
+                            <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <a href="<?= h($bookmark->bookmarks_url); ?>" target="_blank">
+                            <?= $this->Text->autoParagraph(h($bookmark->bookmarks_url)); ?>
+                        </a>
+                    <?php endif; ?>
                 </blockquote>
             </div>
         </div>

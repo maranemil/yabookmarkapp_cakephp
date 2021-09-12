@@ -16,7 +16,7 @@
                     <th><?= $this->Paginator->sort('categories_id') ?></th>
                     <th><?= $this->Paginator->sort('hash') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('type') ?></th>
+                    <th><?= $this->Paginator->sort('bookmarks_type') ?></th>
                     <th><?= $this->Paginator->sort('url') ?></th>
                     <th><?= $this->Paginator->sort('Favs') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -26,16 +26,18 @@
                 <?php foreach ($bookmarks as $bookmark) : ?>
                     <tr>
                         <td><?= $this->Number->format($bookmark->bookmarks_id) ?></td>
-                        <td><?= $bookmark->has('category') ? $this->Html->link($bookmark->category->categories_id, ['controller' => 'Categories', 'action' => 'view', $bookmark->category->categories_id]) : '' ?></td>
+                        <td>
+                            <?= $bookmark->has('category') ? $this->Html->link($bookmark->category->categories_name, ['controller' => 'Categories', 'action' => 'view', $bookmark->category->categories_id]) : '' ?>
+                        </td>
                         <td><?= h(date("d.m.Y", $bookmark->bookmarks_hash)) ?></td>
-                        <td><?= h($bookmark->bookmarks_name) ?></td>
+                        <td><?= h(ucwords(strtolower($bookmark->bookmarks_name))) ?></td>
                         <td><?= h($bookmarks_types[$bookmark->bookmarks_type]) ?></td>
                         <td>
                             <?php if (substr_count($bookmark->bookmarks_url, "http") == 1) : ?>
                                 <a href="<?= h($bookmark->bookmarks_url) ?>" target="_blank">
                                     <i class="fa fa-link"></i>
                                 </a>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <a href="<?= $this->Url->build('/bookmarks/view/' . $bookmark->bookmarks_id, ['fullBase' => true]) ?>" target="_blank">
                                     <i class="fa fa-eye"></i>
                                 </a>
