@@ -31,7 +31,7 @@ class BookmarksController extends AppController
 
     public function initialize(): void
     {
-        parent::initialize();       
+        parent::initialize();
         // $this->loadModel("Bookmarks");
         // Created app.php file inside /templates/layout/app.php
         #$this->viewBuilder()->setLayout("app");
@@ -56,7 +56,7 @@ class BookmarksController extends AppController
             ->group('url')
             ->having(['total >' => 3])
             ->order(['total' => 'DESC'])
-            ->limit(1000);   
+            ->limit(1000);
 
         // debug($query); # check sql statement call
         // debug($query->all()); # check results
@@ -96,7 +96,7 @@ class BookmarksController extends AppController
     {
         $bookmarks = [];
         $search_string = $this->request->getData('search_string');
-        if(!empty($search_string)){
+        if (!empty($search_string)) {
             $bookmarks = $this->paginate(
                 $this->Bookmarks->find(
                     'all',
@@ -105,7 +105,7 @@ class BookmarksController extends AppController
                     ->where(['bookmarks_name LIKE ' =>  "%$search_string%"])
             );
         }
-        
+
         $this->set(compact('bookmarks'));
         $this->set('bookmarks_types', $this->bookmarks_types);
     }
@@ -149,7 +149,7 @@ class BookmarksController extends AppController
 
         // get categories
         $this->loadModel('Categories');
-        $result = $this->Categories->find('all', ['limit' => 500])->all();
+        $result = $this->Categories->find('all', ['limit' => 500])->order(['categories_name' => 'ASC'])->all();
         $this->set('categories_list', $result);
         # debug($result);
         $this->set('bookmarks_types', $this->bookmarks_types);
