@@ -46,7 +46,7 @@
                     <?php if (substr_count($bookmark->bookmarks_url, "http") <> 1) :
                         $arrUrls = explode("\n", $bookmark->bookmarks_url); ?>
                         <?php foreach ($arrUrls as $url) : ?>
-                            <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a>
+                            <a href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a><br/>
                         <?php endforeach; ?>
                     <?php else : ?>
                         <a href="<?= h($bookmark->bookmarks_url); ?>" target="_blank">
