@@ -1,4 +1,8 @@
 <?php
+/** @noinspection PhpUndefinedFieldInspection */
+/** @noinspection PhpReturnDocTypeMismatchInspection */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
+/** @noinspection PhpMissingParamTypeInspection */
 
 declare(strict_types=1);
 
@@ -13,14 +17,16 @@ namespace App\Controller;
 class BookmarksController extends AppController
 {
 
-    /*public $paginate = [
-        'limit' => 10,
-        'maxLimit' => 10,
-        'totallimit' => 1000,
-        'order' => [
-            'Bookmarks.bookmarks_id' => 'desc'
-        ]
-    ];*/
+    /**
+     * public $paginate = [
+     * 'limit' => 10,
+     * 'maxLimit' => 10,
+     * 'totallimit' => 1000,
+     * 'order' => [
+     * 'Bookmarks.bookmarks_id' => 'desc'
+     * ]
+     * ];
+     */
 
     var $bookmarks_types = [
         0 => "bookmark",
@@ -29,6 +35,9 @@ class BookmarksController extends AppController
     ];
 
 
+    /**
+     * @throws \Exception
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -37,13 +46,16 @@ class BookmarksController extends AppController
         #$this->viewBuilder()->setLayout("app");
     }
 
+    /**
+     * @return void
+     */
     public function domains()
     {
 
         $query = $this->Bookmarks->find();
         $query->select(
             [
-                //'url' => $query->newExpr('SUBSTRING_INDEX(`bookmarks_url`, "/", 3)'), # alternative way
+                // 'url' => $query->newExpr('SUBSTRING_INDEX(`bookmarks_url`, "/", 3)'), # alternative way
                 'url' => $query->func()->substring_index([
                     "`bookmarks_url`" => 'literal',
                     "'/'" => 'literal',
@@ -102,7 +114,7 @@ class BookmarksController extends AppController
                     'all',
                     ['contain' => ['Categories']]
                 )
-                    ->where(['bookmarks_name LIKE ' =>  "%$search_string%"])
+                    ->where(['bookmarks_name LIKE ' => "%$search_string%"])
             );
         }
 
@@ -114,7 +126,7 @@ class BookmarksController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Bookmark id.
+     * @param int|null $id Bookmark id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */

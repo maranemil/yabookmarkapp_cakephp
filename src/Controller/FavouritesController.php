@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection PhpMissingParamTypeInspection */
+/** @noinspection PhpReturnDocTypeMismatchInspection */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -20,7 +22,7 @@ class FavouritesController extends AppController
     {
         $this->paginate = [
             'contain' => ['Bookmarks'],
-            'limit' => 10,  
+            'limit' => 10,
         ];
         $favourites = $this->paginate($this->Favourites);
 

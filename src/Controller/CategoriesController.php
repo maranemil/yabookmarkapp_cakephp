@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection PhpRedundantOptionalArgumentInspection */
+/** @noinspection PhpReturnDocTypeMismatchInspection */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
+/** @noinspection PhpMissingParamTypeInspection */
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -57,7 +61,7 @@ class CategoriesController extends AppController
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $this->set(compact('category'));
-        $this->set('categories',$this->Categories->find('all')->all());
+        $this->set('categories', $this->Categories->find('all')->all());
     }
 
     /**
@@ -82,7 +86,7 @@ class CategoriesController extends AppController
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $this->set(compact('category'));
-        $this->set('categories',$this->Categories->find('all')->all());
+        $this->set('categories', $this->Categories->find('all')->all());
     }
 
     /**

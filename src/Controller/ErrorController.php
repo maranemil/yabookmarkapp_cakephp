@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
+/** @noinspection PhpReturnDocTypeMismatchInspection */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
+/** @noinspection PhpUnused */
 declare(strict_types=1);
 
 /**
@@ -29,6 +32,7 @@ class ErrorController extends AppController
      * Initialization hook method.
      *
      * @return void
+     * @throws \Exception
      */
     public function initialize(): void
     {

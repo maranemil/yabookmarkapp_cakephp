@@ -1,13 +1,16 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Exception;
+# use App\Controller\AppController;
+# use Exception;
 use Cake\Datasource\ConnectionManager;
 
 class AjaxController extends AppController
 {
+    /**
+     * @throws \Exception
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -15,38 +18,44 @@ class AjaxController extends AppController
         $this->loadModel("Favourites");
     }
 
+    /**
+     *
+     */
     public function toggle()
     {
         if ($this->request->is('ajax')) {
 
             // get ajax info
+            /** @noinspection PhpUndefinedFieldInspection */
             $bookmark = $this->Bookmarks->get($this->request->getData("bookmarks_id"));
             // check if exists in DB
             $connection = ConnectionManager::get('default');
+            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $results = $connection
                 ->execute('SELECT * FROM favourites WHERE bookmarks_id = :bookmarks_id', ['bookmarks_id' => $bookmark->bookmarks_id])
                 ->fetchAll('assoc');
 
-
             if (empty($results)) {
                 // make insert
+                /** @noinspection PhpUndefinedFieldInspection */
                 $query = $this->Favourites->query();
+                /** @noinspection PhpPossiblePolymorphicInvocationInspection */
                 $query->insert(['bookmarks_id'])
                     ->values([
                         'bookmarks_id' => $bookmark->bookmarks_id
                     ])
                     ->execute();
-
-                //$this->Flash->success(__('The bookmark has been saved.'. $bookmark->bookmarks_id));
+                // $this->Flash->success(__('The bookmark has been saved.'. $bookmark->bookmarks_id));
+                /** @noinspection PhpPossiblePolymorphicInvocationInspection */
                 echo json_encode(array(
                     "status" => 1,
                     "message" => "The bookmark " . $bookmark->bookmarks_id . " has been saved. - "
                 ));
-                exit;
             } else {
 
                 $favResult = array_shift($results);
                 // delete fav
+                /** @noinspection PhpUndefinedFieldInspection */
                 $query = $this->Favourites->query();
                 $query->delete()
                     ->where(['favourites_id' => $favResult["favourites_id"]])
@@ -57,8 +66,8 @@ class AjaxController extends AppController
                     //"message" => "The bookmark is already saved. "
                     "message" => "The bookmark " . $favResult["favourites_id"] . " has been deleted."
                 ));
-                exit;
             }
+            exit;
         }
     }
 }
