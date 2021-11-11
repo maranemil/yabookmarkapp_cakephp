@@ -5,11 +5,12 @@ namespace App\Controller;
 # use App\Controller\AppController;
 # use Exception;
 use Cake\Datasource\ConnectionManager;
+use Exception;
 
 class AjaxController extends AppController
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function initialize(): void
     {

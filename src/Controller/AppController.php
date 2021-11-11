@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Exception;
 
 /**
  * Application Controller
@@ -36,7 +37,7 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('FormProtection');`
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function initialize(): void
     {
