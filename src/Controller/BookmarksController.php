@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection PhpUnused */
+/** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
 /** @noinspection PhpUndefinedFieldInspection */
 /** @noinspection PhpReturnDocTypeMismatchInspection */
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
@@ -28,10 +30,10 @@ class BookmarksController extends AppController
      * ];
      */
 
-    var $bookmarks_types = [
+    public $bookmarks_types = [
         0 => "bookmark",
-        2 => "notice",
         1 => "collection",
+        2 => "notice",
     ];
 
 
@@ -49,7 +51,7 @@ class BookmarksController extends AppController
     /**
      * @return void
      */
-    public function domains()
+    public function domains(): void
     {
 
         $query = $this->Bookmarks->find();
@@ -110,11 +112,9 @@ class BookmarksController extends AppController
         $search_string = $this->request->getData('search_string');
         if (!empty($search_string)) {
             $bookmarks = $this->paginate(
-                $this->Bookmarks->find(
-                    'all',
-                    ['contain' => ['Categories']]
-                )
-                    ->where(['bookmarks_name LIKE ' => "%$search_string%"])
+                $this->Bookmarks->find()->where(['bookmarks_name LIKE ' => "%$search_string%"])
+                 //   'all',
+                 //   ['contain' => ['Categories']]
             );
         }
 

@@ -1,4 +1,9 @@
-<?php /** @noinspection PhpUnused */
+<?php /** @noinspection SqlNoDataSourceInspection */
+/** @noinspection SqlDialectInspection */
+/** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
+
+/** @noinspection PhpUnused */
 
 namespace App\Controller;
 
@@ -7,6 +12,10 @@ namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
 use Exception;
 
+/**
+ * @method loadModel(string $string)
+ * @property $request
+ */
 class AjaxController extends AppController
 {
     /**
@@ -22,7 +31,7 @@ class AjaxController extends AppController
     /**
      *
      */
-    public function toggle()
+    public function toggle(): void
     {
         if ($this->request->is('ajax')) {
 
@@ -31,7 +40,6 @@ class AjaxController extends AppController
             $bookmark = $this->Bookmarks->get($this->request->getData("bookmarks_id"));
             // check if exists in DB
             $connection = ConnectionManager::get('default');
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $results = $connection
                 ->execute('SELECT * FROM favourites WHERE bookmarks_id = :bookmarks_id', ['bookmarks_id' => $bookmark->bookmarks_id])
                 ->fetchAll('assoc');
@@ -40,18 +48,16 @@ class AjaxController extends AppController
                 // make insert
                 /** @noinspection PhpUndefinedFieldInspection */
                 $query = $this->Favourites->query();
-                /** @noinspection PhpPossiblePolymorphicInvocationInspection */
                 $query->insert(['bookmarks_id'])
                     ->values([
-                        'bookmarks_id' => $bookmark->bookmarks_id
-                    ])
+                                 'bookmarks_id' => $bookmark->bookmarks_id
+                             ])
                     ->execute();
                 // $this->Flash->success(__('The bookmark has been saved.'. $bookmark->bookmarks_id));
-                /** @noinspection PhpPossiblePolymorphicInvocationInspection */
                 echo json_encode(array(
-                    "status" => 1,
-                    "message" => "The bookmark " . $bookmark->bookmarks_id . " has been saved. - "
-                ));
+                                     "status"  => 1,
+                                     "message" => "The bookmark " . $bookmark->bookmarks_id . " has been saved. - "
+                                 ));
             } else {
 
                 $favResult = array_shift($results);
@@ -63,10 +69,10 @@ class AjaxController extends AppController
                     ->execute();
 
                 echo json_encode(array(
-                    "status" => 1,
-                    //"message" => "The bookmark is already saved. "
-                    "message" => "The bookmark " . $favResult["favourites_id"] . " has been deleted."
-                ));
+                                     "status"  => 1,
+                                     //"message" => "The bookmark is already saved. "
+                                     "message" => "The bookmark " . $favResult["favourites_id"] . " has been deleted."
+                                 ));
             }
             exit;
         }

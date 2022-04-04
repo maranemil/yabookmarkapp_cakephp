@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
 declare(strict_types=1);
 
 /**
@@ -26,6 +27,7 @@ use Exception;
  * will inherit them.
  *
  * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
+ * @method loadComponent(string $string)
  */
 class AppController extends Controller
 {
